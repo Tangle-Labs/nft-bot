@@ -79,7 +79,7 @@ export const confirmConnectionTrigger = async (
   message.author.send({ embeds: [embed] });
 };
 
-const helpController = async (message: discord.Message) => {
+export const helpController = async (message: discord.Message) => {
   const embed = new MessageEmbed()
     .setTitle("Help")
     .setDescription(
