@@ -1,0 +1,10 @@
+{
+  "name": "nft-tanglelabs-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Coodos <info@coodos.co>",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^13.6.0"
+  }
+}
