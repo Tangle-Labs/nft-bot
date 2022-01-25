@@ -14,3 +14,7 @@ export const connectController = async (
 
   message.author.send({ embeds: [embed] });
 };
+
+export const confirmConnectionTrigger = async (
+  message: discord.Message
+): Promise<void> => {};
