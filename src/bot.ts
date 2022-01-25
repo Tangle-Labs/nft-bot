@@ -10,7 +10,9 @@ const bot = new Client({
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MEMBERS,
     Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.DIRECT_MESSAGES,
   ],
+  partials: ["CHANNEL", "MESSAGE"],
 });
 
 bot.login(BOT_TOKEN);

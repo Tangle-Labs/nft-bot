@@ -1,6 +1,9 @@
 import discord from "discord.js";
-import { CONNECT_TRIGGER } from "../constants/triggers";
-import { connectController } from "./connection.controller";
+import { CONNECT_TRIGGER, DONE_TRIGGER } from "../constants/triggers";
+import {
+  confirmConnectionTrigger,
+  connectController,
+} from "./connection.controller";
 
 export const handleMessage = async (
   message: discord.Message
@@ -11,5 +14,7 @@ export const handleMessage = async (
   switch (trigger) {
     case CONNECT_TRIGGER:
       return connectController(message);
+    case DONE_TRIGGER:
+      return confirmConnectionTrigger(message);
   }
 };
