@@ -86,5 +86,5 @@ export const helpController = async (message: discord.Message) => {
       `To connect your wallet with your discord account please type the command\n \`\`\`${CONNECT_TRIGGER}\`\`\` Further instructions will be sent to your DMs`
     )
     .setColor("GREEN");
-  message.author.send({ embeds: [embed] });
+  message.channel.send({ embeds: [embed] });
 };
