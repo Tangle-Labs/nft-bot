@@ -1,6 +1,11 @@
-import discord, { Client, Message, MessageEmbed } from "discord.js";
+import discord, {
+  Client,
+  InternalDiscordGatewayAdapterCreator,
+  Message,
+  MessageEmbed,
+} from "discord.js";
 import axios from "axios";
-import { DONE_TRIGGER } from "../constants/triggers";
+import { CONNECT_TRIGGER, DONE_TRIGGER } from "../constants/triggers";
 import { User } from "../models/user.model";
 import {
   BLUE_ROLE,
@@ -31,13 +36,6 @@ export const confirmConnectionTrigger = async (
   if (!user) return;
   const { nfts } = user;
 
-  const colors = {
-    gold: 4,
-    purple: 3,
-    red: 2,
-    blue: 1,
-  };
-
   const NFTs = await Promise.all(
     nfts.map(async (nft) => {
       const NFT = await axios.get(nft, {
@@ -49,15 +47,13 @@ export const confirmConnectionTrigger = async (
 
   if (NFTs.length === 0) return;
 
-  let currHighest = 0;
-  let currBestColor;
+  const colors: string[] = [];
   for (const nft of NFTs) {
     const color = nft.attributes
       .find((a: any) => a.trait_type === "Color")
       .trait_value.toLowerCase();
-    // @ts-ignore
-    if (colors[color] > currHighest) {
-      currBestColor = color;
+    if (!colors.includes(color)) {
+      colors.push(color);
     }
   }
   const guild = await message.client.guilds.fetch(DISCORD_SERVER);
@@ -70,13 +66,25 @@ export const confirmConnectionTrigger = async (
     blue: BLUE_ROLE,
   };
 
-  // @ts-ignore
-  member.roles.add(roles[currBestColor]);
+  for (const color of colors) {
+    // @ts-ignore
+    await member.roles.add(roles[color]);
+  }
 
   const embed = new MessageEmbed()
     .setTitle("Done!")
     .setDescription("Your roles have been added!")
     .setColor("GREEN");
 
+  message.author.send({ embeds: [embed] });
+};
+
+const helpController = async (message: discord.Message) => {
+  const embed = new MessageEmbed()
+    .setTitle("Help")
+    .setDescription(
+      `To connect your wallet with your discord account please type the command\n \`\`\`${CONNECT_TRIGGER}\`\`\` Further instructions will be sent to your DMs`
+    )
+    .setColor("GREEN");
   message.author.send({ embeds: [embed] });
 };
