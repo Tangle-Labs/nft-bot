@@ -3,7 +3,7 @@ import { BOT_TOKEN, MONGO_URI } from "./config";
 import { handleMessage } from "./controllers";
 import { connectToDB } from "./utils/mongo.util";
 
-// URL : https://discord.com/api/oauth2/authorize?client_id=934596216921157703&permissions=268503072&scope=bot
+// URL -> https://discord.com/api/oauth2/authorize?client_id=936613122024812545&permissions=268503072&scope=bot
 
 const bot = new Client({
   intents: [

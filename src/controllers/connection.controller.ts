@@ -1,9 +1,4 @@
-import discord, {
-  Client,
-  InternalDiscordGatewayAdapterCreator,
-  Message,
-  MessageEmbed,
-} from "discord.js";
+import discord, { MessageEmbed } from "discord.js";
 import axios from "axios";
 import { CONNECT_TRIGGER, DONE_TRIGGER } from "../constants/triggers";
 import { User } from "../models/user.model";
@@ -26,7 +21,7 @@ export const connectController = async (
     )
     .setColor("GREEN");
 
-  message.author.send({ embeds: [embed] });
+  message.reply({ embeds: [embed] });
 };
 
 export const confirmConnectionTrigger = async (
@@ -76,7 +71,7 @@ export const confirmConnectionTrigger = async (
     .setDescription("Your roles have been added!")
     .setColor("GREEN");
 
-  message.author.send({ embeds: [embed] });
+  message.reply({ embeds: [embed] });
 };
 
 export const helpController = async (message: discord.Message) => {
@@ -86,5 +81,5 @@ export const helpController = async (message: discord.Message) => {
       `To connect your wallet with your discord account please type the command\n \`\`\`${CONNECT_TRIGGER}\`\`\` Further instructions will be sent to your DMs`
     )
     .setColor("GREEN");
-  message.channel.send({ embeds: [embed] });
+  message.reply({ embeds: [embed] });
 };
